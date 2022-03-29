@@ -9,8 +9,12 @@
   "author": "Alejandro Mandala",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.3",
+    "express-session": "^1.17.2",
+    "helmet": "^5.0.2",
     "knex": "^1.0.4",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "passport": "^0.5.2"
   }
 }
