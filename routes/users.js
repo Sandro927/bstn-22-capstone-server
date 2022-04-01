@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 const authorize = require("../middleware/authorize");
 
 
+
 router.post('/register', (req, res) => {
     const { name, username, password } = req.body;
     //Handle empty fields
@@ -41,7 +42,7 @@ router.post('/login', (req, res) => {
 
    //Handle empty fields
     if (!username || !password) {
-        return res.status(400).send({
+        return res.status(400).json({
             message: "Please enter the required fields"
         })
     }
@@ -83,7 +84,6 @@ router.post('/login', (req, res) => {
 
 router.get('/current', authorize, (req, res) => {
 
-
     knex('users')
         .where({ username: req.decoded.username })
         .first()
@@ -95,6 +95,5 @@ router.get('/current', authorize, (req, res) => {
         })
 
 })
-
 
 module.exports = router;
