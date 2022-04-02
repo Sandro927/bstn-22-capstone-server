@@ -2,8 +2,16 @@ const knex = require("knex")(require('../knexfile'));
 
 exports.fetchAllPosts = (res) => {
     knex('posts')
-        .select("*")
-        .from("posts")
+        .select(
+            'users.username',
+            'users.userId',
+            'posts.postId',
+            'posts.postContent',
+            'posts.postImage',
+            'posts.likeCount',
+            'posts.postedAt'
+        )
+        .join('users', 'posts.post_user_id', 'users.userId')
         .then(data => {
             res.json(data);
         })
