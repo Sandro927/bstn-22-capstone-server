@@ -41,7 +41,7 @@ exports.addPost = (postContent, postImage, userId, res) => {
         })
 }
 
-exports.incrementLikes = (req, res, postId, likeCount) => {
+exports.incrementPostLikes = (req, res, postId, likeCount) => {
     knex('posts')
         .update({likeCount: likeCount})
         .where({postId: postId})
@@ -88,6 +88,17 @@ exports.addComment = (req, res, commentContent, userId, postId) => {
             console.log(err)
             res.status(500).send({
                 message: "Error posting comments"
+            })
+        })
+}
+
+exports.incrementCommentLikes = (req, res, postId, likeCount, commentId) => {
+    knex('comments')
+        .update({likeCount: likeCount})
+        .where({commentId: commentId, })
+        .then(() => {
+            return res.status(203).send({
+                message: 'Likes incremented'
             })
         })
 }

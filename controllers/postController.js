@@ -16,10 +16,10 @@ exports.createPost = (req, res) => {
     postModel.addPost(postContent, postImage, userId, res);
 }
 
-exports.incrementLikes = (req, res) => {
+exports.incrementPostLikes = (req, res) => {
     const { postId } = req.params;
     const { likeCount } = req.body
-    postModel.incrementLikes(req, res, postId, likeCount);
+    postModel.incrementPostLikes(req, res, postId, likeCount);
 }
 
 exports.getComments = (req, res) => {
@@ -30,4 +30,10 @@ exports.getComments = (req, res) => {
 exports.createComment = (req, res) => {
     const { commentContent, userId, postId } = req.body
     postModel.addComment(req, res, commentContent, userId, postId);
+}
+
+exports.incrementCommentLikes = (req, res) => {
+    const { postId, commentId } = req.params;
+    const { likeCount } = req.body
+    postModel.incrementCommentLikes(req, res, postId, likeCount, commentId);
 }

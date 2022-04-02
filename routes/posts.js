@@ -7,10 +7,13 @@ router.route('/')
     .post(postController.createPost)
 
 router.route('/:postId/like')
-    .put(postController.incrementLikes)
+    .put(postController.incrementPostLikes)
 
 router.route('/:postId/comments')
     .get(postController.getComments)
     .post(postController.createComment)
+
+router.route('/:postId/comments/:commentId/like')
+    .put(postController.incrementCommentLikes)
 
 module.exports = router;
