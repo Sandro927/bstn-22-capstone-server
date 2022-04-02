@@ -52,6 +52,26 @@ exports.incrementLikes = (req, res, postId, likeCount) => {
         })
 }
 
+exports.getComments = (req, res, postId) => {
+    knex('comments')
+        .select(
+            'users.username',
+            'users.userId',
+            'comments.commentId',
+            'comments.commentContent',
+            'comments.likeCount',
+            'comments.commentedAt'
+        )
+        .join('users', 'comments.comment_user_id', 'users.userId')
+        .where({comment_post_id: postId})
+        .then(data => {
+            res.json(data);
+        })
+        .catch(err => {
+            res.status(500).send("Error retrieving all posts");
+        })
+}
+
 exports.addComment = (req, res, commentContent, userId, postId) => {
     knex('comments')
         .insert({

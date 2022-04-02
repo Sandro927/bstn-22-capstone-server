@@ -22,6 +22,11 @@ exports.incrementLikes = (req, res) => {
     postModel.incrementLikes(req, res, postId, likeCount);
 }
 
+exports.getComments = (req, res) => {
+    const { postId } = req.params;
+    postModel.getComments(req, res, postId);
+}
+
 exports.createComment = (req, res) => {
     const { commentContent, userId, postId } = req.body
     postModel.addComment(req, res, commentContent, userId, postId);

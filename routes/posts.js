@@ -10,6 +10,7 @@ router.route('/:postId/like')
     .put(postController.incrementLikes)
 
 router.route('/:postId/comments')
+    .get(postController.getComments)
     .post(postController.createComment)
 
 module.exports = router;
