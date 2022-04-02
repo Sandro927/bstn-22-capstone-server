@@ -51,3 +51,23 @@ exports.incrementLikes = (req, res, postId, likeCount) => {
             })
         })
 }
+
+exports.addComment = (req, res, commentContent, userId, postId) => {
+    knex('comments')
+        .insert({
+            commentContent: commentContent,
+            comment_user_id: userId,
+            comment_post_id: postId
+        })
+        .then(() => {
+            res.status(201).send({
+                message: "Commented Successfully"
+            })
+        })
+        .catch((err) => {
+            console.log(err)
+            res.status(500).send({
+                message: "Error posting comments"
+            })
+        })
+}

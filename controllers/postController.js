@@ -21,3 +21,8 @@ exports.incrementLikes = (req, res) => {
     const { likeCount } = req.body
     postModel.incrementLikes(req, res, postId, likeCount);
 }
+
+exports.createComment = (req, res) => {
+    const { commentContent, userId, postId } = req.body
+    postModel.addComment(req, res, commentContent, userId, postId);
+}
