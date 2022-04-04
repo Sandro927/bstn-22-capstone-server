@@ -12,4 +12,7 @@ router.route('/login')
 router.route('/current')
     .get(authorize, userController.getCurrentUser)
 
+router.route('/:userId/dashboard')
+    .get(userController.getDashboard)
+
 module.exports = router;

@@ -69,3 +69,8 @@ exports.getCurrentuser = (req, res) => {
             res.json(user)
         })
 }
+
+exports.getUserDashboard = (req, res, userId) => {
+    // knex('users')
+    //     .where({  })
+}

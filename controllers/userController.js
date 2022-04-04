@@ -29,3 +29,8 @@ exports.verifyUser = (req, res) => {
 exports.getCurrentUser = (req, res) => {
     userModel.getCurrentuser(req, res);
 }
+
+exports.getDashboard = (req, res) => {
+    const { userId } = req.params;
+    userModel.getUserDashboard(req, res, userId);
+}
