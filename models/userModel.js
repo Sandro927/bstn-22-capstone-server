@@ -1,5 +1,6 @@
 const knex = require("knex")(require('../knexfile'));
 const bcrypt = require('bcrypt');
+const e = require("express");
 const jwt = require('jsonwebtoken');
 
 exports.addUser = (req, res, name, username, hashedPassword) => {
@@ -10,6 +11,7 @@ exports.addUser = (req, res, name, username, hashedPassword) => {
             password: hashedPassword
         })
         .then(() => {
+            
             res.status(201).send({
                 message: "Registered Successfully"
             })
@@ -73,4 +75,93 @@ exports.getCurrentuser = (req, res) => {
 exports.getUserDashboard = (req, res, userId) => {
     // knex('users')
     //     .where({  })
+}
+
+exports.getUserGameData = (req, res, userId) => {
+    knex('user_game_data')
+        .select(
+            "user_game_data.*",
+            "users.userAvatar"
+        )
+        .join('users', 'users.userId', 'user_game_data.game_data_user_id')
+        .where({game_data_user_id: userId})
+        .first()
+        .then(gameData => {
+            //send user data
+            res.json(gameData);
+        })
+}
+
+exports.createUserGameData = (req, res, userId) => {
+    knex('user_game_data')
+        .insert({
+            game_data_user_id: userId
+        })
+        .then(() => {
+            return res.status(201).send({
+                message: "Created Successfully"
+            })
+        })
+        
+}
+
+exports.updateUserGameData = (req, res, userId, bio, userAvatar, OriginUsername, DiscordUsername, PSNUsername, NintendoUsername, 
+    SteamUsername, DivisionUsername, XboxUsername, WoWUsername, OSRSUsername, SplitgateUsername) => {
+    if (bio || userAvatar) {
+      knex('user_game_data')
+        .where('game_data_user_id', userId)
+        .update({
+            bio:bio,
+            userAvatar: userAvatar
+        })
+        .then(() => {
+            return res.status(201).send({
+                message: "Updated Successfully"
+            })
+        })
+    } else {
+        knex('user_game_data')
+        .where('game_data_user_id', userId)
+        .update({
+            origin_username: OriginUsername,
+            discord_username: DiscordUsername,
+            psn_username: PSNUsername,
+            nintendo_username: NintendoUsername,
+            steam_username: SteamUsername,
+            division_username: DivisionUsername,
+            xbox_username: XboxUsername,
+            wow_username: WoWUsername,
+            osrs_username: OSRSUsername,
+            splitgate_username: SplitgateUsername,
+        })
+        .then(() => {
+            return res.status(201).send({
+                message: "Updated Successfully"
+            })
+        })
+    }
+   
+}
+
+exports.updateUser = (req, res, userId, userAvatar) => {
+    knex('users')
+    .where('userId', userId)
+    .update({userAvatar: userAvatar})
+    .then(() => {
+        return res.status(201).send({
+            message: "Updated Successfully"
+        })
+    })
+}
+
+exports.getAvatar = (req, res, userId) => {
+    knex('users')
+    .select('userAvatar')
+    .first()
+    .where('userId', userId)
+    .then(user => {
+        delete user.password;
+        //send user data
+        res.json(user)
+    })
 }

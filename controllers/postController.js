@@ -37,3 +37,8 @@ exports.incrementCommentLikes = (req, res) => {
     const { likeCount } = req.body
     postModel.incrementCommentLikes(req, res, postId, likeCount, commentId);
 }
+
+exports.getSingleUserPosts = (req, res) => {
+    const { userId } = req.params;
+    postModel.fetchSingleUserPosts(req, res, userId);
+}

@@ -11,6 +11,8 @@ module.exports = {
     user: "root",
     password: "rootroot",
     database: "capstone",
-    charset: "utf8"
-  }
+    charset: "utf8",
+    timezone: 'etc'
+  },
+  
 };

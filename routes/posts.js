@@ -16,4 +16,7 @@ router.route('/:postId/comments')
 router.route('/:postId/comments/:commentId/like')
     .put(postController.incrementCommentLikes)
 
+router.route('/:userId')
+    .get(postController.getSingleUserPosts)
+
 module.exports = router;

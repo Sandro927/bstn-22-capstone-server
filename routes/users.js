@@ -12,7 +12,18 @@ router.route('/login')
 router.route('/current')
     .get(authorize, userController.getCurrentUser)
 
+router.route('/:userId')
+    .get(userController.getUserAvatar)
+    .put(userController.updateUser)
+
 router.route('/:userId/dashboard')
     .get(userController.getDashboard)
+
+router.route('/:userId/profile')
+    .get(userController.getUserProfile)
+    .post(userController.createUserProfile)
+    .put(userController.updateUserProfile)
+
+
 
 module.exports = router;

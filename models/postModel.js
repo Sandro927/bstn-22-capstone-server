@@ -12,11 +12,36 @@ exports.fetchAllPosts = (res) => {
             'posts.postedAt'
         )
         .join('users', 'posts.post_user_id', 'users.userId')
+        .orderBy('posts.postedAt', 'desc')
         .then(data => {
             res.json(data);
         })
         .catch(err => {
             res.status(500).send("Error retrieving all posts");
+        })
+}
+
+exports.fetchSingleUserPosts = (req, res, userId) => {
+    knex('posts')
+        .select(
+            'users.username',
+            'users.userId',
+            'posts.postId',
+            'posts.postContent',
+            'posts.postImage',
+            'posts.likeCount',
+            'posts.postedAt'
+        )
+        .join('users', 'posts.post_user_id', 'users.userId')
+        .where({'posts.post_user_id': userId})
+        .orderBy('posts.postedAt', 'desc')
+        .limit(5)
+        .then(data => {
+            res.json(data);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(507).send("Error retrieving all posts");
         })
 }
 
@@ -64,6 +89,7 @@ exports.getComments = (req, res, postId) => {
         )
         .join('users', 'comments.comment_user_id', 'users.userId')
         .where({comment_post_id: postId})
+        .orderBy('comments.commentedAt', 'desc')
         .then(data => {
             res.json(data);
         })

@@ -9,6 +9,7 @@
             table.string("name").notNullable();
             table.string("username").notNullable().unique();
             table.string("password").notNullable();
+            table.string("avatar");
             table.timestamp("registeredAt").defaultTo(knex.fn.now());
         })
         .createTable("posts", (table) => {
@@ -44,6 +45,29 @@
                 .inTable('users')
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE');
+        })
+        .createTable("user_game_data", table => {
+            table.increments("dataId").primary();
+            table.string("origin_username");
+            table.string("discord_username");
+            table.string("psn_username");
+            table.string("nintendo_username");
+            table.string("steam_username");
+            table.string("division_username");
+            table.string("xbox_username");
+            table.string("wow_username");
+            table.string("osrs_username");
+            table.string("splitgate_username");
+            table.string("bio");
+            table.string("avatarURL");
+            table
+                .integer('game_data_user_id')
+                .unsigned()
+                .references('userId')
+                .inTable('users')
+                .onUpdate('CASCADE')
+                .onDelete('CASCADE');
+            
         });
 };
 
