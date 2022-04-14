@@ -50,7 +50,6 @@ exports.updateUserProfile = (req, res) => {
     const { bio, userAvatar, OriginUsername, DiscordUsername, PSNUsername, NintendoUsername, 
         SteamUsername, DivisionUsername, XboxUsername, WoWUsername, OSRSUsername, 
         SplitgateUsername  } = req.body;
-    console.log(req.body);
     userModel.updateUserGameData(req, res, userId, bio, userAvatar, OriginUsername, DiscordUsername, PSNUsername, NintendoUsername, 
         SteamUsername, DivisionUsername, XboxUsername, WoWUsername, OSRSUsername, SplitgateUsername);
 }

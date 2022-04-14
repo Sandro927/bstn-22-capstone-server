@@ -9,7 +9,7 @@
             table.string("name").notNullable();
             table.string("username").notNullable().unique();
             table.string("password").notNullable();
-            table.string("avatar");
+            table.string("avatar").defaultTo("https://www.svg.com/img/gallery/the-most-terrible-things-master-chief-has-ever-done/intro-1556227104.webp");
             table.timestamp("registeredAt").defaultTo(knex.fn.now());
         })
         .createTable("posts", (table) => {

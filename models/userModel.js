@@ -81,7 +81,8 @@ exports.getUserGameData = (req, res, userId) => {
     knex('user_game_data')
         .select(
             "user_game_data.*",
-            "users.userAvatar"
+            "users.userAvatar",
+            "users.username"
         )
         .join('users', 'users.userId', 'user_game_data.game_data_user_id')
         .where({game_data_user_id: userId})
